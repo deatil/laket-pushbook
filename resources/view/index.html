@@ -64,8 +64,8 @@
                             <div>
                                 <template x-for="(item, index) in types" :key="index">
                                     <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="type" x-model="type" :id="index" :value="item">
-                                      <label class="form-check-label" :for="index" x-text="item"></label>
+                                      <input class="form-check-input" type="radio" name="type" x-model="type" :id="`type_${index}`" :value="item">
+                                      <label class="form-check-label" :for="`type_${index}`" x-text="item"></label>
                                     </div>
                                 </template>
                             </div>
