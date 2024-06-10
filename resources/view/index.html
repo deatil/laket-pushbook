@@ -1,0 +1,142 @@
+<html lang="zh-CN" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8">
+    <title>表单提交</title>
+    <link href="{:laket_assets('/laket-pushbook/js/bootstrap/css/bootstrap.min.css')}" rel="stylesheet">
+    <link href="{:laket_assets('/laket-pushbook/js/font-awesome/font-awesome.min.css')}" rel="stylesheet">
+    <style>
+    .pushbook {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    </style>
+  </head>
+  <body>
+
+    <div class="container pushbook">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-header">
+                    <i class="fa fa-book" aria-hidden="true"></i> 表单提交
+                  </div>
+                  <div class="card-body">
+            
+                    <form x-data="pushbook()">
+                      <div class="mb-3">
+                        <label for="title" class="form-label">标题</label>
+                        <input type="email" class="form-control" id="title" name="title" x-model="title" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">请填写标题</div>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <div class="mb-3">
+                          <label for="content" class="form-label">内容</label>
+                          <textarea rows="3" class="form-control" id="content" name="content" x-model="content"></textarea>
+                        </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                          <label for="contact" class="form-label">联系方式</label>
+                          
+                          <div class="row gy-2 gx-3 align-items-center">
+                              <div class="col-auto">
+                                <select class="form-select" name="contact_type" x-model="contact_type">
+                                  <option value="" selected>请选择方式</option>
+                                  <template x-for="item in contact_types">
+                                    <option :value="item" x-text="item"></option>
+                                  </template>
+                                </select>
+                              </div>
+                              
+                              <div class="col-auto">
+                                <input type="text" class="form-control" name="contact" id="contact" x-model="contact" aria-describedby="basic-contact">
+                              </div>
+                          </div>
+                          
+                          <div class="form-text">请填写联系方式</div>
+                      </div>
+                      
+                      <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="type" class="form-label">类型</label>
+                            
+                            <div>
+                                <template x-for="(item, index) in types" :key="index">
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="radio" name="type" x-model="type" :id="index" :value="item">
+                                      <label class="form-check-label" :for="index" x-text="item"></label>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                      </div>
+                      
+                      <button type="button" class="btn btn-primary" x-on:click="submit">提 交</button>
+                    </form>
+                
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{:laket_assets('/laket-pushbook/js/bootstrap/js/bootstrap.bundle.min.js')}"></script>
+    <script src="{:laket_assets('/laket-pushbook/js/jquery/jquery.min.js')}"></script>
+    <script src="{:laket_assets('/laket-pushbook/js/alpinejs/alpine.min.js')}"></script>
+    <script src="{:laket_assets('/laket-pushbook/js/layer/layer.js')}"></script>
+    <script>
+    function pushbook() {
+        return {
+            title: "",
+            content: "",
+            contact_type: "",
+            contact: "",
+            type: "反馈信息",
+            
+            contact_types: ['QQ', '电话', '邮箱'],
+            types: ['反馈信息', '商务合作'],
+            
+            submit() { 
+                var title = this.title;
+                var content = this.content;
+                var contact_type = this.contact_type;
+                var contact = this.contact;
+                var type = this.type;
+                
+                var url = "{:laket_route('pushbook.save')}";
+                $.post(url, {
+                    'title': title,
+                    'content': content,
+                    'contact_type': contact_type,
+                    'contact': contact,
+                    'type': type,
+                }, function (data) {
+                    if (data.code == 0) {
+                        layer.msg(data.msg, {
+                            offset: '15px',
+                            icon: 1,
+                            time: 1000
+                        }, function() {
+                            window.location.reload();
+                        });
+                    } else {
+                        layer.msg(data.msg, { 
+                            offset: '15px',
+                            icon: 2 
+                        });
+                    }
+                }, "json").fail(function() {
+                    layer.msg('请求失败！', { 
+                        offset: '15px',
+                        icon: 2 
+                    });
+                });
+            },
+
+        }
+    }
+    </script>
+
+  </body>
+</html>

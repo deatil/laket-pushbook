@@ -1,0 +1,42 @@
+{
+    "name": "laket/laket-pushbook",
+    "description": "laket-admin 表单提交",
+    "keywords": [
+        "laket",
+        "operation-log",
+        "admin",
+        "laket-admin"
+    ],
+    "homepage": "https://github.com/deatil/laket-pushbook",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "deatil",
+            "email": "deatil@github.com",
+            "homepage": "https://github.com/deatil",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.0",
+        "laket/laket-admin": "1.2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laket\\Admin\\Pushbook\\": "src"
+        }
+    },
+    "laket" : {
+        "title": "表单提交",
+        "version": "1.0.0",
+        "adaptation": "1.2.*"
+    },
+    "extra": {
+        "think":{
+            "services":[
+                "Laket\\Admin\\Pushbook\\Service"
+            ]
+        }
+    }
+}

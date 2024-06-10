@@ -1,0 +1,82 @@
+{extend name="$laket_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header layui-bg-cyan">表单记录</div>
+    <div class="layui-card-body">
+        <blockquote class="layui-elem-quote">
+            <form class="layui-form lake-admin-search-form" method="get">
+                <div class="layui-inline">
+                    <input type="text" name="keywords" class="layui-input lake-admin-search-val" placeholder="请输入关键字">
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn lake-admin-search-btn" data-type="search">搜索</a>
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn layui-btn-normal" href="{:laket_route('pushbook.index')}" target="_blank">表单页面</a>
+                </div>
+            </form>
+        </blockquote>
+        
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script type="text/html" id="addTimeTpl">
+    {{ layui.util.toDateString(d.add_time * 1000, 'yyyy-MM-dd HH:mm:ss') }}
+</script>
+
+<script type="text/html" id="actionTpl">
+    {if laket_auth(['admin.pushbook.view'])}
+        <a href='{:laket_route("admin.pushbook.view")}?id={{ d.id }}' class="layui-btn layui-btn-xs layui-iframe" title="表单详情">详情</a>
+    {else}
+        <a href='javascript:;' class="layui-btn layui-btn-xs layui-btn-disabled">详情</a>
+    {/if}
+    
+    {if laket_auth(['admin.pushbook.delete'])}
+        <a href='{:laket_route("admin.pushbook.delete")}?id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
+    {else}
+        <a href='javascript:;' class="layui-btn layui-btn-xs layui-btn-disabled">删除</a>
+    {/if}
+
+</script>
+
+<script>
+layui.use(['table', 'laydate'], function() {
+    var table = layui.table,
+        $ = layui.$;
+        
+    table.render({
+        elem: '#table',
+        toolbar: true,
+        url: '{:laket_route("admin.pushbook.index-data")}',
+        method: 'get', 
+        cols: [
+            [
+                { field: 'type', width: 90, title: '类型', align: 'center' },
+                { field: 'title', title: '标题', align: "center" },
+                { field: 'add_time', width: 180, title: '添加时间', templet: '#addTimeTpl' },
+                { width: 130, title: '操作', templet: '#actionTpl' },
+            ]
+        ],
+        page: {},
+        limit: 20
+    });
+    
+    // 搜索
+    $(".lake-admin-search-btn").on("click", function() {
+        table.reload("table", {
+            page: {
+                curr: 1
+            },
+            where: {
+                keywords: $(".lake-admin-search-val").val(),
+            }
+        })
+    });
+    
+});
+</script>
+{/block}
