@@ -4,7 +4,7 @@ return [
     "title" => "表单提交",
     "url" => "pushbook/index",
     "method" => "GET",
-    "slug" => $this->slug,
+    "slug" => $slug,
     "icon" => "icon-createtask",
     "listorder" => 1025,
     "menu_show" => 1,
