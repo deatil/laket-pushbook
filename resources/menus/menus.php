@@ -6,7 +6,7 @@ return [
     "method" => "GET",
     "slug" => $slug,
     "icon" => "icon-createtask",
-    "listorder" => 1025,
+    "listorder" => 1075,
     "menu_show" => 1,
     "remark" => "",
     "children" => [
@@ -25,7 +25,7 @@ return [
                     "method" => "GET",
                     "slug" => "admin.pushbook.index",
                     "menu_show" => 0,
-                    "listorder" => 5,
+                    "listorder" => 15,
                 ],
                 [
                     "title" => "表单提交数据",
@@ -33,7 +33,7 @@ return [
                     "method" => "GET",
                     "slug" => "admin.pushbook.index-data",
                     "menu_show" => 0,
-                    "listorder" => 10,
+                    "listorder" => 14,
                 ],
                 [
                     "title" => "表单详情",
@@ -41,7 +41,7 @@ return [
                     "method" => "GET",
                     "slug" => "admin.pushbook.view",
                     "menu_show" => 0,
-                    "listorder" => 15,
+                    "listorder" => 13,
                 ],
                 [
                     "title" => "删除表单",
@@ -49,7 +49,7 @@ return [
                     "method" => "POST",
                     "slug" => "admin.pushbook.delete",
                     "menu_show" => 0,
-                    "listorder" => 20,
+                    "listorder" => 12,
                 ],
             ],
         ],
