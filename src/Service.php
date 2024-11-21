@@ -13,11 +13,6 @@ use Laket\Admin\Flash\Service as BaseService;
 class Service extends BaseService
 {
     /**
-     * composer
-     */
-    public $composer = __DIR__ . '/../composer.json';
-    
-    /**
      * 包名
      */
     protected $pkg = 'laket/laket-pushbook';

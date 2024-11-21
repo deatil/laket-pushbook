@@ -65,6 +65,13 @@ class Pushbook
             'type|类型' => 'require',
         ], [
             'title.require' => '标题不能为空',
+            'title.min' => '标题最少需要2个字符',
+            'content.require' => '内容不能为空',
+            'content.min' => '内容最少需要3个字符',
+            'contact.require' => '联系方式不能为空',
+            'contact.min' => '联系方式最少需要3个字符',
+            'contact_type.require' => '联系方式类型不能为空',
+            'type.require' => '类型不能为空',
         ], false, false);
         if (! $v->check($data)) {
             return json([
